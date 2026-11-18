@@ -1,0 +1,314 @@
+---
+title: "RPractical"
+author: "Angel Mry Neil Berzuela"
+date: "2026-11-10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+---
+title: "RPractical"
+author: "Angel Mry Neil Berzuela"
+date: "2026-11-10"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+##Part A: Basic Operations
+
+# A1 Create v as the sequence 5, 10, 15, ..., 50 using seq(). Print its length, sum and mean.
+```{r}
+v <- seq(5, 50, by = 5)
+print(v)
+print(length(v))
+print(sum(v))
+print(mean(v))
+```
+##A2 Create w that repeats the vector c(1, 2, 3) four times, and z that repeats each element of c(1, 2, 3) fourr times. Print both.
+
+```{r}
+w <- rep(c(1, 2, 3), times = 4)
+z <- rep(c(1, 2, 3), each = 4)
+print(w)
+print(z)
+```
+## A3 Compute and print: remainder of 17 / 5, integer division of 17 %/% 5, 2^10, sqrt(144), and pi rounded to 3 decimals.
+```{r}
+print(17 %% 5)
+print(17 %/% 5)
+print(2^10)
+print(sqrt(144))
+print(round(pi, 3))
+```
+##A4 Givem a <- c(2,4,6) and b <-c( 1,3,5,7), print a+B, a * b, the logical comparison  a>b, and the dot product sum(a*b).
+```{r}
+a <- c(2, 4, 6, 8)
+b <- c(1, 3, 5, 7)
+
+print(a + b)
+print(a * b)
+print(a > b)
+
+print(sum(a * b))
+```
+##A5 Use paste() to produce "Student-1" " Student-2" "Student-3". Then identify the datatype of 42, 42L, "42", 41i, and TRUE. What are  its outputs?
+
+```{r}
+class(42)
+class(42L)
+class("42")
+class(41i)
+class(TRUE)
+```
+
+###Part B; Dta Frames and Conditional Statements
+
+##B1 Create a data frame students with 8 rows and these columns( use stringASFactors = FALSE; sex is "M" or "F")
+```{r}
+students <- data.frame (id = 1:8,
+                        
+                        name = c("Alice", "Bruno", "Chen", "Dana", "Elif", "Farid", "Grace", "Hiro"),
+                        
+                        sex = c("F", "M", "M", "F", "F", "M", "F", "M"),
+                        
+                        section = c("A", "B", "A", "C", "B", "C", "A", "B"),
+                        
+                        midterm = c(78, 85, 92, 67, 74, 88, 95, 59),
+                        
+                        final = c(82, 79, 96, 71, 80, 91, 93, 65),
+                        
+                        attendance = c(95, 88, 100, 72, 90, 85, 98, 60),
+                        
+                        stringsAsFactors = FALSE)
+print(students)
+```
+
+
+##B2 Display the sructure, dimensions, columns names, and summary of studnts.
+
+```{r}
+str(students)
+dim(students)
+colnames(students)
+summary(students)
+```
+
+##B3 Add a column average = the mean of midterm and final for each student, rounded to 1 decimal
+```{r}
+students$average <- round((students$midterm + students$final) / 2, 1)
+
+print(students)
+```
+##B4 Add a logical column passed that is TRUE when average >= 70 an attendance >=75.
+```{r}
+students$passed <- (students$average >= 70) & (students$attendance >= 75)
+
+print(students)
+```
+##B5 using if else(), add a column standing with thses values based on average:
+
+1. "Honors" if average >= 90
+2. "Good" if average >= 75 (and below 90)
+3. " Needs Support" otherwise
+
+```{r}
+students$standing <- ifelse(students$average >= 90, "Honors",
+                            
+                            ifelse(students$average >= 75, "Good", "Needs Support"))
+
+print(students)
+
+```
+
+##B6 Write a function classify(score) that uses if / else if/ else chain and returns " Distinction" for 85 or above, "Merit" for 70 to 84, "Pass" for 50 to 69, and "Fail" below 50. Test it with sapply(c(90,73,55,40), classify) and print the result.
+```{r}
+classify <- function(score) {
+  if (score >= 85) {
+    
+    return("Distinction")
+  } else if (score >= 70) {
+    return("Merit")
+  } else if (score >= 50) {
+    return("Pass")
+  } else {
+    return("Fail")
+  }
+}
+
+test_scores <- c(90, 73, 55, 40)
+
+print(sapply(test_scores, classify))
+```
+###Part C: rbind() and cbind()
+
+##C1 Create a data frame new_studnts with two studntes. Its columns must match the original, including, average, passed and standing, comuted the same way: 
+
+1. id 9, Ines, F, section C, midterm 81, final 84, attendance 92
+2. id 10, Jamal, M, section A, midterm 70, final 68, attendance 80
+
+Use rbind() to append them to students, saving the result as student_all.
+
+```{r}
+new_students <- data.frame(
+  
+  id = c(9, 10),
+  name = c("Ines", "Jamal"),
+  sex = c("F", "M"),
+  section = c("C", "A"),
+  midterm = c(81, 70),
+  final = c(84, 68),
+  attendance = c(92, 80),
+  average = c(82.5, 69.0),
+  passed = c(TRUE, FALSE),
+  standing = c("Good", "Needs Support"),
+  stringsAsFactors = FALSE
+)
+
+students_all <- rbind(students, new_students)
+print(students_all)
+```
+##C2 Create quiz vector, attach via cbind(), and confirm class is data.frame.
+
+```{r}
+quiz <- c(8, 7, 10, 6, 7, 9, 10, 5, 8, 6)
+students_all <- cbind(students_all, quiz)
+
+class(students_all)
+```
+
+# C3 Create matrix m with midterm and final, use rbind() to add mean row.
+```{r}
+m <- cbind(midterm = students_all$midterm, final = students_all$final)
+mean_row <- colMeans(m)
+m <- rbind(m, mean = mean_row)
+
+print(m)
+```
+
+##C4 In a comment (2-3 sentences), explain what error rbind()
+produces if the data frames have different column names, and show the output if you safely catch it with tryCatc()
+
+tryCatch(rbind(students, bad), error = function(e) {message("rbind failed: ", conditionMessage(e)) NULL}).
+
+Answer: Because when data frames was used it needs to have the same match so that it will be successful code and never gonna be an error
+
+###Part D: Subsetting
+
+##D1 Extract the name column in three ways: $, [[...]], and [, ...].
+
+```{r}
+print(students_all$name)
+print(students_all[["name"]])
+print(students_all[, "name"])
+
+```
+##D2 Extract rows 2 to 5 and only the columns name, midterm, final.
+
+```{r}
+print(students_all[2:5, c("name", "midterm", "final")])
+```
+##D3 Using logical subsetting, select students with attendance above 90.
+
+```{r}
+print(students_all[students_all$attendance > 90, ])
+```
+##D4 Using subset(), select students of sex "F" in section "A" or "C" whose final >= 75; return only name, section and final.
+
+```{r}
+print(subset(students_all, sex == "F" & (section == "A" | section == "C") & final >= 75, select = c(name, section, final)))
+```
+###Part E: Basic Factors
+##E1 Convert section and sex in students_all to factor(). Print levels()of each.
+```{r}
+students_all$section <- factor(students_all$section)
+students_all$sex <- factor(students_all$sex)
+
+levels(students_all$section)
+levels(students_all$sex)
+```
+
+## E2 Use table() to count students per section and per section
+*Try the two-way table of sex by section. table(students_all$sex, students_all$section). What is the output.
+
+```{r}
+table(students_all$sex)
+table(students_all$section)
+table(students_all$sex, students_all$section)
+```
+
+## E3 Print as.integer() of the sex factor. In a comment, explaint what the integers represent.
+```{r}
+as.integer(students_all$sex)
+
+# Each integer is the position of the level: 1 = "F" (first level),
+# 2 = "M" (second level). Levels are sorted alphabetically by default.
+```
+
+## E4 Create a new factor sex_label from sex using factor() with levels = c("F", "M") and labels = c("Female", "Male"). Add it to students_a;; and print its levels()
+```{r}
+students_all$sex_label <- factor(students_all$sex,
+                                 levels = c("F", "M"),
+                                 labels = c("Female", "Male"))
+
+levels(students_all$sex_label)
+```
+
+## E5 Print summary() of sex_label. Then, using logical subsetting and mean(), print the mean average for each level of sex_label.
+
+```{r}
+ summary(students_all$sex_label)
+
+sapply(levels(students_all$sex_label), function(lv) {
+  mean(students_all$average[students_all$sex_label == lv])
+})
+```
+
+
